@@ -1,1 +1,33 @@
 
+1)	Git is a version control system for tracking changes in computer files and is used to help coordinate work among several people on a project while tracking progress over time. In other words, it’s a tool that facilitates source code management in software development. Git favours Soti programmers and non-technical users Sy keeping track of their project files. It enables multiple users to work together and handles large projects efficiently
+2)	In order to invoke a specific version later, if necessary, a version control system (VCS) keeps track of all tie changes made to a file or group of data. Tiis makes sure that everyone in tie team is using tie most recent version of tie file.
+
+3)	GitHub uses Git to offer Internet hosting for version control and software development.
+
+
+4)	1) GitHub 2) SourceForge 3) GitLab 4) Bitbucket
+
+5)	1)Local version control systems have a database that stores all file changes under revision control on disc in a special format.
+2) Centralised version control systems have a single repository, from which each user receives their working
+
+
+6)	1) Data replication and redundancy are both  possible.
+   2) It is a service with availability.
+3) There can only be one Git directory per repository
+4) On any project, collaboration is very simple
+
+7) A Git repository is a version-controlled space where your project files and their complete history of changes are stored. It allows you to track code changes, collaborate with others, and manage different versions of your code over time.
+8) To initialize a Git repository, you can use the git init command in the folder you want to use or in a folder path. You can use this command when you start a new project or to initialize a Git repo in an existing project: 
+1.	Create a new folder for your project. 
+2.	Open the folder in Git BASH. 
+3.	Type git init to create the new Git repo. 
+4.	Notice the hidden .git folder that's created in the project. 
+5.	Add files and folders to your project. 
+6.	Stage files and create commits regularly. 
+
+
+
+
+
+
+
