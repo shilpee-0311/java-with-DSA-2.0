@@ -1,0 +1,71 @@
+1)An interface in Java is a mechanism that is used to achieve complete abstraction. It is basically a kind of class that contains only constants and abstract methods.
+
+2) Only abstract and public modifiers are allowed for methods in interfaces.
+
+3) There are many reasons to use interfaces in java. They are as follows:
+a. An interface is used to achieve full abstraction.
+b. Using interfaces is the best way to expose our project’s API to some other project.
+c. Programmers use interfaces to customise features of software differently for different objects.
+d. By using interface, we can achieve the functionality of multiple inheritance.
+
+4)     1)Definition & Purpose:
+•	Abstract Class: A class that can have both abstract (incomplete) and concrete (complete) methods. It is used when classes share common behavior but should not be instantiated directly.
+•	Interface: A contract that defines what methods a class should implement. It is used to define a set of methods that must be implemented by any class that chooses to implement the interface.
+2. Methods:
+•	Abstract Class:
+o	Can have both abstract methods (without body) and concrete methods (with implementation).
+•	Interface:
+o	Prior to Java 8, could only have abstract methods (without body).
+o	From Java 8 onward, interfaces can have default methods (with body), static methods, and from Java 9, even private methods.
+
+
+
+                 Lambda Expression 
+1) As its name suggests it's an expression which allows you to write more succinct code in Java 8. For
+example (a, b) -> a + b is a lambda expression (look for that arrow ->).
+Which is equal to following code:
+public int value(int a, int b){
+return a + b;
+}
+It's also called an anonymous function because you are essentially writing the code you write in function but
+without name.
+2) Yes, you can pass a lambda expression to a method provided it is expecting a functional interface. For
+example, if a method is accepting a Runnable, Comparable or Comparator then you can pass a lambda
+expression to it because all these are functional interfaces in Java 8.
+3)A functional interface in Java 8 is an interface with a single abstract method. For example, Comparator
+which has just one abstract method called compare() or Runnable which has just one abstract method called run(). There are many more general purpose functional interfaces introduced in JDK on java.util.function package. They are also annotated with @FunctionalInterface but that's optional.
+4)The main benefit of lambda expression in Java 8 is that now it's easier to pass a code block to a method.
+Earlier, the only way to do this was wrapping the code inside an Anonymous class, which requires a lot of boilerplate code.
+5)No, it's not mandatory for a lambda expression to have parameters, you can define a lambda expression without parameters as shown below:
+() -> System.out.println("lambdas without parameter");
+You can pass this code to any method which accepts a functional interface.
+   
+                              EXCEPTION HANDLING 
+1)In any programming language We categorise errors into 2 types
+ Syntax Error/CompileTime error
+` Logical Error/RunTime error
+Syntax error/CompileTime error
+ It referd to the error  done by the programmer with respect to syntax
+ These errors are identified by the compiler, do we say it as “Compile Time error”.
+Logical Error/Run Time error
+ It refers to the error done by the programmer in terms  of writing a logic
+ These errors are identified by jvm during the execution of a program, do we day it a“Run Time error ”.
+2) An unwanted/expected event that disturbs the normal flow of execution of a program id called "Exception handling"
+ The main objective of Exception handling id to handle the exception
+ It is available for graceful termination of program.
+3) Exception handling can be performed using:
+Try: the set of statement or code which required monitoring for an exception id kept under this  block.
+Catch: this block catches all exception that were trapped in the try block.
+Finally: this block is always performed irrespective of the catching of exception in the try or catch block.
+4) If there is  no try and catch block while an exception occurs, the program will terminate Exception handling ensures the smooth running of a program without program termination.
+5) Error typically happen while an application id running For instance, Out of Memory Error occurs in case
+the JVM runs out of memory On the other hand, exception are mainly caused by the application .For instance,
+Null Pointer Exception happend when an app tried to get through a null object.
+
+6)Based on handling by JVM, there are typically two types of exceptions in Java:
+Checked: Occur during the compilation. Here, the compiler checks whether the exception is handled and throws an error accordingly.
+Unchecked: Occur during program execution. These are not detectable during the compilation process.
+7. Can we just use try instead of finally and catch blocks? Give an example .
+Ans: No, doing so will show a compilation error. Catch or finally block must always accompany try block. We can remove either finally block or catch block, but never both.
+
+
