@@ -1,0 +1,228 @@
+1)class Main {
+   public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int width = obstacleGrid[0].length;
+        int[] dp = new int[width];
+        dp[0] = 1;
+        for (int[] row : obstacleGrid) {
+            for (int j = 0; j < width; j++) {
+                if (row[j] == 1)
+                    dp[j] = 0;
+                else if (j > 0)
+                    dp[j] += dp[j - 1];
+                }   
+            }   
+        return dp[width - 1];
+   }
+	public static void main(String[] args){
+        int grid [][] = {   { 0 , 0 , 0 },
+                            { 0 , 1 , 0 },
+                            { 0 , 0 , 0 }  };
+		System.out.println("The desired output is : " + uniquePathsWithObstacles(grid));
+	}
+}
+
+
+2)class Main {
+   public static int rob(int[] nums) {
+        if (nums.length == 0)
+            return 0;
+        if (nums.length < 2)
+            return nums[0];
+        
+        int[] startFromFirstHouse = new int[nums.length + 1];
+        int[] startFromSecondHouse = new int[nums.length + 1];
+        
+        startFromFirstHouse[0]  = 0;
+        startFromFirstHouse[1]  = nums[0];
+        startFromSecondHouse[0] = 0;
+        startFromSecondHouse[1] = 0;
+        
+        for (int i = 2; i <= nums.length; i++) {
+            startFromFirstHouse[i] = Math.max(startFromFirstHouse[i - 1], startFromFirstHouse[i - 2] + nums[i-1]);
+            startFromSecondHouse[i] = Math.max(startFromSecondHouse[i - 1], startFromSecondHouse[i - 2] + nums[i-1]);
+        }
+        
+        return Math.max(startFromFirstHouse[nums.length - 1], startFromSecondHouse[nums.length]);
+    }
+	public static void main(String[] args){
+        int nums[] = {2,3,2};
+		System.out.println("The desired output is : " + rob(nums));
+	}
+}
+
+3)class Main {
+    public static int minPathSum(int[][] grid) {
+        int m = grid.length;
+        int n= grid[0].length;
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                if(i==0 && j==0) continue;
+                else if (i == 0) grid[i][j] += grid[i][j-1];
+                else if(j == 0) grid[i][j] += grid[i-1][j];
+                else grid[i][j] += Math.min(grid[i-1][j],grid[i][j-1]);
+            }
+        }
+        return grid[m-1][n-1];
+    }
+	public static void main(String[] args){
+        int grid[][] = {{1,3,1},
+                        {1,5,1},
+                        {4,2,1}};
+		System.out.println("The desired output is : " + minPathSum(grid));
+	}
+}
+
+
+4)class Main {
+    static Boolean mem[][];
+    public static boolean canPartition(int[] nums) {
+        int sum = 0;
+        int n = nums.length;
+        
+        for(int i : nums) sum+=i;
+        
+        if(sum%2!=0) return false;
+        
+        sum /= 2;
+        
+        mem = new Boolean[n+1][sum+1];
+        
+        return subsetSum(nums,0,sum);
+    }
+    
+    static boolean subsetSum(int[] nums, int pos, int sum){
+        if(sum==0) return true;
+        
+        else if(pos>=nums.length || sum<0) return false;
+        
+        if(mem[pos][sum] != null) return mem[pos][sum];
+        
+        return mem[pos][sum] = subsetSum(nums,pos+1,sum-nums[pos]) || subsetSum(nums,pos+1,sum);
+    }
+	public static void main(String[] args){
+        int nums[] = {1,2,5,1,3};
+		System.out.println("The desired output is : " + canPartition(nums));
+	}
+}
+
+5)class Main {
+    public static int coinChange(int amount, int[] coins) {
+        // Declaring a 2-D array for storing solutions to subproblems:
+    	int size = coins.length;
+    	int[][] arr = new int[size + 1][amount + 1];
+    	
+      // Initializing first column of array to 1 because a sum of 0 can be made in one possible way: {0}
+    	for(int i = 0; i < size + 1; i++)arr[i][0] = 1;
+    	
+      // Applying the recursive solution:
+    	for(int i = 1; i < size + 1; i++)
+    		for(int j = 0; j < amount+ 1; j++)
+    			if(coins[i - 1] > j)  // Cannot pick the highest coin:
+    				arr[i][j] = arr[i - 1][j];
+    			else  // Pick the highest coin:
+    				arr[i][j] = arr[i][j - coins[i - 1]] + arr[i - 1][j];
+    	
+    	return arr[size][amount];
+    }
+  
+	public static void main(String[] args){
+       int amount = 5;
+       int []nums = {1 , 2 , 5}; 
+	   System.out.println("The desired output is : " + coinChange(amount , nums));
+	}
+}
+
+6)class Main {
+	static int climbingStairs(int n, int m){
+		int dp[] = new int[n+1];
+		dp[0] = 1;
+		dp[1] = 1;
+		for (int i = 2; i < n; i++) {
+			dp[i] = 0;
+			for (int j = 1; j <= m && j <= i; j++)	dp[i] += dp[i - j];
+		}
+		return dp[n - 1];
+	}
+	public static void main(String[] args){
+		int n = 5, m = 3;
+		System.out.println("Number of ways = " + climbingStairs(n, m));
+	}
+}
+
+7)class Main {
+	 public static int tribonacci(int n){
+        if(n < 3)   return n == 0 ? 0 : 1;
+        
+        int[] res = new int[n+1];
+        res[0] = 0;
+        res[1] = 1;
+        res[2] = 1;
+        for(int i = 3; i <= n; i++) res[i] = res[i-1] + res[i-2] + res[i-3];
+        
+        return res[n];
+    }
+	public static void main(String[] args){
+		int n = 25;
+		System.out.println("Nth tribonacci number is : " + tribonacci(n));
+	}
+}
+
+8)class Main {
+	public static int rob(int[] nums) {
+        int n = nums.length;
+        int dp[] = new int[n];
+        dp[0] = nums[0];
+        if(n == 1)return nums[0];
+        dp[1] = Math.max(nums[0] , nums[1]);
+        
+        for(int i=2;i<n;i++){
+            dp[i] = Math.max(nums[i] + dp[i-2] , dp[i-1]);
+        }
+        
+        return dp[n-1];
+	}
+	public static void main(String[] args){
+	    int []nums = {1,2,3,1};
+		System.out.println("The maximum profit a thief can make : " + rob(nums));
+	}
+}
+
+9)class Main {
+    public static int uniquePaths(int m, int n) {
+      //Two variables i.e. to go right or to got down so 2D array.  
+        int dp[][]=new int[m+1][n+1];  
+        return solve(0,0,m,n,dp);
+    }
+    public static int solve(int i,int j,int m,int n,int[][]dp){
+        if(i == m - 1 &&  j == n - 1) return 1;
+        if(i >= m || j >= n) return 0;
+        
+        if(dp[i][j]!=0) return dp[i][j];
+        
+       dp[i][j] = solve(i + 1 , j , m , n , dp) + solve(i , j + 1 , m , n , dp);//Two choices Either go right or go down. Answer would be the sum of both the combinations.        
+      return dp[i][j];
+    }
+	public static void main(String[] args){
+	    int m = 5 , n = 4;
+		System.out.println("The desired output is : " + uniquePaths(m,n));
+	}
+}
+
+10)class Main {
+    public static int minimumTotal(int [][]triangle) {
+	int n = triangle.length;
+	int[][] dp = new int[n+1][n+1];
+
+	for (int level=n-1; level>=0; level--)
+		for (int i=0; i<=level; i++)
+			dp[level][i] = triangle[level][i] + Math.min(dp[level+1][i], dp[level+1][i+1]);
+
+	return dp[0][0];
+    }
+	public static void main(String[] args){
+        int triangle [][] = { { 2 },
+                         { 3, 9 },
+                         { 1, 6, 7 }  };
+		System.out.println("The desired output is : " + minimumTotal(triangle));
+	}
+}
