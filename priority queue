@@ -1,0 +1,332 @@
+1)import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+ 
+class Main{
+    // Function to find the k'th largest element in an array using max-heap
+    public static int findKthLargest(List<Integer> ints, int k){
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> b - a);
+                                    // or pass `Comparator.reverseOrder()`
+        pq.addAll(ints);
+ 
+        // pop from max-heap exactly `k-1` times
+        while (--k > 0) {
+            pq.poll();
+        }
+        return pq.peek();
+    }
+ 
+    public static void main(String[] args){
+        List<Integer> ints = Arrays.asList(7, 4, 6, 3, 9, 1);
+        int k = 2;
+        System.out.println("k'th largest array element is " + findKthLargest(ints, k));
+    }
+}
+
+
+2)import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+ 
+class Main{
+    public static int findKthLargest(List<Integer> ints, int k){
+        // create a min-heap using the `PriorityQueue` class and insert the first `k` array elements into the heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>(ints.subList(0, k));
+ 
+        for (int i = k; i < ints.size(); i++){
+            // if the current element is more than the root of the heap
+            if (ints.get(i) > pq.peek()){
+                // replace root with the current element
+                pq.poll();
+                pq.add(ints.get(i));
+            }
+        }
+        return pq.peek();
+    }
+
+    public static void main(String[] args){
+        List<Integer> ints = Arrays.asList(7, 4, 6, 3, 9, 1);
+        int k = 2;
+ 
+        System.out.println("k'th largest array element is " + findKthLargest(ints, k));
+    }
+}
+
+
+3)import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+ 
+class Main{
+    // Function to calculate the minimum cost to join `n` ropes into a single rope
+    public static int findMinCost(List<Integer> prices)
+    {
+        // create a min-heap using `PriorityQueue` class from elements of the list
+        PriorityQueue<Integer> pq = new PriorityQueue<>(prices);
+ 
+        // keep track of the minimum cost so far
+        int cost = 0;
+ 
+        // repeat till heap size is reduced to one
+        while (pq.size() > 1){
+            // Extract the top two elements from the min-heap
+            int x = pq.poll();
+            int y = pq.poll();
+ 
+            // calculate the cost of the extracted values
+            int sum = x + y;
+ 
+            // insert the cost back to the min-heap
+            pq.add(sum);
+ 
+            // update the minimum cost
+            cost += sum;
+        }
+        return cost;
+    }
+ 
+    public static void main(String[] args){
+        List<Integer> prices = Arrays.asList(5, 4, 2, 8);
+        System.out.println("The minimum cost is " + findMinCost(prices));
+    }
+}
+
+
+4)import java.util.Arrays;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.*;
+ 
+class Main{
+   public static void topKFrequent(String[] words, int k) {
+        
+        List<String> result = new ArrayList<String>();
+        Map<String, Integer> map = new HashMap<>();
+        
+        for(int i=0; i<words.length; i++){
+            if(map.containsKey(words[i]))
+                map.put(words[i], map.get(words[i])+1);
+            else
+                map.put(words[i], 1);
+        }
+        
+        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
+                 (a,b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) : a.getValue()-b.getValue()
+        );
+        
+        for(Map.Entry<String, Integer> entry: map.entrySet()) {
+            pq.offer(entry);
+            if(pq.size()>k)
+                pq.poll();
+        }
+
+        while(!pq.isEmpty()) result.add(0, pq.poll().getKey());
+        
+        for(String res : result){
+            System.out.print(res + "  ");
+        }
+    }
+    public static void main(String[] args){
+        String[] input = { "PW" , "PWskills" , "PhysicsWallah" , "PW" , "PhysicsWallah" , "PWJAVA" , "Code" };
+        topKFrequent(input , 3);
+    }
+}
+
+5)import java.util.*;
+ 
+class Main{
+   public static int lastStoneWeight(int[] A) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b)-> b - a);
+        for (int a : A)
+            pq.offer(a);
+        while (pq.size() > 1)
+            pq.offer(pq.poll() - pq.poll());
+        return pq.poll();
+    }
+    public static void main(String[] args){
+        int[] input = {2,7,4,1,8,1};
+        System.out.println("The desired output is : " + lastStoneWeight(input));
+    }
+}
+
+6)import java.util.*;
+class Main{
+     public static String reorganizeString(String S) {
+        Map<Character, Integer> map = new HashMap();
+        for(char ch : S.toCharArray()) {
+            map.put(ch, map.getOrDefault(ch, 0)+1);
+        }
+        PriorityQueue<Map.Entry<Character, Integer>> maxHeap = new PriorityQueue<>((a,b) -> b.getValue() - a.getValue());
+        maxHeap.addAll(map.entrySet());
+        StringBuilder sb = new StringBuilder();
+        Map.Entry<Character, Integer> previousEntry = null;
+        while(!maxHeap.isEmpty()) {
+            Map.Entry<Character, Integer> currentEntry = maxHeap.poll();
+            if(previousEntry != null && previousEntry.getValue() > 0) {
+                maxHeap.offer(previousEntry);
+            }
+            sb.append(currentEntry.getKey());
+            currentEntry.setValue(currentEntry.getValue()-1);
+            previousEntry = currentEntry;
+        }
+        
+        return sb.toString().length() == S.length() ? sb.toString() : "";
+    }
+    public static void main(String[] args){
+        String S = "physicsWallahaappwskillls";
+        System.out.println("The desired output is : " + reorganizeString(S));
+    }
+}
+
+7)import java.util.*;
+class Main{
+    public static void kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        PriorityQueue<int[]> que = new PriorityQueue<>((a,b)->a[0]+a[1]-b[0]-b[1]);
+        List<int[]> res = new ArrayList<>();
+        if(nums1.length==0 || nums2.length==0 || k==0) return ;
+        for(int i=0; i<nums1.length && i<k; i++) que.offer(new int[]{nums1[i], nums2[0], 0});
+        while(k-- > 0 && !que.isEmpty()){
+            int[] cur = que.poll();
+            res.add(new int[]{cur[0], cur[1]});
+            if(cur[2] == nums2.length-1) continue;
+            que.offer(new int[]{cur[0],nums2[cur[2]+1], cur[2]+1});
+        }
+        for(int[] a : res){
+            for(int b : a){
+                System.out.printf(b + " ");
+            }
+            System.out.println();
+        }
+    }
+    public static void main(String[] args){
+       int nums1[] = {1,2,5,6,8};
+       int nums2[] = {4,5,16};
+       
+       int k = 4;
+       System.out.println("The desired output is : ");
+       kSmallestPairs(nums1 , nums2 , k);
+    }
+}
+
+8)import java.util.*;
+class Main{
+   public static int maximumScore(int a, int b, int c) {
+        //maxheap
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>((a1, b1) -> (b1 - a1));
+        
+        //store in maxHeap
+        maxHeap.add(a);
+        maxHeap.add(b);
+        maxHeap.add(c);
+        
+        int score = 0;
+        while(maxHeap.size() > 1){
+            //find first two max number
+            int maxNum1 = maxHeap.remove();
+            int maxNum2 = maxHeap.remove();
+            
+            //decrement both 
+            maxNum1--;
+            maxNum2--;
+            
+            //only add in heap, if greater than 0
+            if(maxNum1 > 0) maxHeap.add(maxNum1);
+            if(maxNum2 > 0) maxHeap.add(maxNum2);
+            
+            //increase score
+            score++;
+        }
+        
+        return score;
+    }
+    public static void main(String[] args){
+        int a = 5 , b = 4 , c = 7;
+       System.out.println("The desired output is : " + maximumScore(a,b,c));
+    }
+}
+
+9)import java.util.*;
+class Main{
+   public static int kthSmallest(int[][] mat, int k) {
+    	int col = Math.min(mat[0].length, k);
+    
+    	PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+    	pq.add(0);
+    	for (int[] row : mat) {
+    		// max priority queue for the i-th row
+    		PriorityQueue<Integer> nextPq = new PriorityQueue<>(Collections.reverseOrder());
+    		for (int i : pq) {
+    			for (int c = 0; c < col; c++) {
+    				nextPq.add(i + row[c]);
+    				// keep pq size <= k
+    				if (nextPq.size() > k) {
+    					nextPq.poll();
+    				}
+    			}
+    		}
+    		pq = nextPq;
+    	}
+    	return pq.poll();
+    }
+    public static void main(String[] args){
+       int [][]input = {{1,3,11} , {2,4,6}};
+       int k = 5;
+       
+       System.out.println("The desired output is : " + kthSmallest(input , k));
+    }
+}
+
+10)import java.io.*;
+import java.util.*;
+class MedianOfIntegerStream {
+
+    private static Queue<Integer> minHeap, maxHeap;
+
+    static void add(int num) {
+        if (!minHeap.isEmpty() && num < minHeap.peek()) {
+            maxHeap.offer(num);
+            if (maxHeap.size() > minHeap.size() + 1) {
+                minHeap.offer(maxHeap.poll());
+            }
+        } else {
+            minHeap.offer(num);
+            if (minHeap.size() > maxHeap.size() + 1) {
+                maxHeap.offer(minHeap.poll());
+            }
+        }
+    }
+
+    static double getMedian() {
+        int median;
+        if (minHeap.size() < maxHeap.size()) {
+            median = maxHeap.peek();
+        } else if (minHeap.size() > maxHeap.size()) {
+            median = minHeap.peek();
+        } else {
+            median = (minHeap.peek() + maxHeap.peek()) / 2; 
+        }
+        return median;
+    }
+    
+    static void initialize(){
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
+        
+        MedianOfIntegerStream obj = new MedianOfIntegerStream();
+        
+        obj.add(3);
+        System.out.println("The median is : " + getMedian());
+         obj.add(3);
+         obj.add(2);
+         obj.add(5);
+        System.out.println("The median is : " + getMedian());
+         obj.add(7);
+         obj.add(12);
+        System.out.println("The median is : " + getMedian());
+    }
+
+	public static void main(String[] args){
+		initialize();
+	}
+}
+
