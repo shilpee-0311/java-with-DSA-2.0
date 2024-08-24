@@ -1,0 +1,111 @@
+1)import java.time.*;
+public class DateTime {
+public static void main(String[] args) {
+LocalDate date = LocalDate.now();
+System.out.println(date);
+LocalTime time=LocalTime.now();
+System.out.println(time);
+}
+}
+
+Output:
+javac DateTime.java
+java DateTime
+2023-03-30
+10:33:11.025394800
+
+2)import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+public class DateToString {
+public static void main(String[] args) {
+LocalDate date = LocalDate.of(2023, 4, 4);
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+String formattedDate = date.format(formatter);
+System.out.println("Formatted Date: " + formattedDate);
+}
+}
+
+Output:
+javac DateToString.java
+java DateToString
+Formatted Date: 04/04/2023
+
+
+3)Ex: Collections
+import java.io.*;
+import java.util.*;
+class Main {
+public static void main(String[] args)
+{
+List<String> CompanyList = new ArrayList<>();
+CompanyList.add("Google");
+CompanyList.add("Apple");
+CompanyList.add("Microsoft");
+Comparator<String> com = (String o1, String o2) -> o1.compareTo(o2);
+Collections.sort(CompanyList, com);
+for (String name : CompanyList) {
+System.out.println(name);
+}
+}
+}
+
+Output:
+Apple
+Google
+Microsoft
+
+
+Ex: Streams
+import java.io.*;
+import java.util.*;
+class Demo {
+public static void main(String[] args)
+{
+List<String> CompanyList = new ArrayList<>();
+CompanyList.add("Google");
+CompanyList.add("Apple");
+CompanyList.add("Microsoft");
+CompanyList.stream().sorted().forEach(
+System.out::println);
+}
+}
+
+Output:
+Apple
+Google
+Microsoft
+
+4)We can use enum to define a group of named constants.
+Enums are used to represent a collection of related constants that have a common purpose. Each constant in an
+enum is an instance of the enum type, and they are typically defined as public static final fields.
+Here's an example of how to define an enum in Java:
+
+class EnumDemo{
+public enum DayOfWeek {
+MONDAY,
+TUESDAY,
+WEDNESDAY,
+THURSDAY,
+FRIDAY,
+SATURDAY,
+SUNDAY
+}
+public static void main(String args[]){
+for(DayOfWeek d:DayOfWeek.values())
+System.out.println(d);
+}
+}
+5)
+
+Ans: built-in annotations in Java:
+@Override
+@Deprecated
+@SuppressWarnings
+@FunctionalInterface
+@Retention
+@Target
+@Documented
+@Inherited
+These built-in annotations in Java are used to provide additional information to the Java compiler and other
+tools. They help improve code readability, maintainability, and safety by enforcing specific rules and behaviours
+in Java code.
